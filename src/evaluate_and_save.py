@@ -86,7 +86,8 @@ def main():
         print(f"  District {i}: predicted ${pred*100000:>9,.0f} | actual ${actual*100000:>9,.0f} | off by ${diff:,.0f}")
 
     # ---------- STEP 8: Save the model ----------
-    joblib.dump(model, MODEL_PATH)
+    # compress=3 shrinks the file ~4x (135MB -> ~31MB) so it fits on GitHub
+    joblib.dump(model, MODEL_PATH, compress=3)
     size_mb = MODEL_PATH.stat().st_size / 1e6
     print(f"\nModel saved to: {MODEL_PATH} ({size_mb:.1f} MB)")
     print("Reload it anytime with:  model = joblib.load('models/house_price_model.pkl')")
