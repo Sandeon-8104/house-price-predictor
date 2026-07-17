@@ -1,19 +1,23 @@
 """
-Convert report/REPORT.md to a styled PDF.
+Convert a markdown file in report/ to a styled PDF.
 
 Method: markdown -> HTML (styled) -> PDF via Microsoft Edge headless printing.
-Run from the project folder with:  py report/make_pdf.py
+Run from the project folder with:
+  py report/make_pdf.py            (converts REPORT.md)
+  py report/make_pdf.py EXPLAINED  (converts EXPLAINED.md)
 """
 
 import subprocess
+import sys
 from pathlib import Path
 
 import markdown
 
 REPORT_DIR = Path(__file__).resolve().parent
-MD_PATH = REPORT_DIR / "REPORT.md"
-HTML_PATH = REPORT_DIR / "REPORT.html"
-PDF_PATH = REPORT_DIR / "REPORT.pdf"
+NAME = sys.argv[1] if len(sys.argv) > 1 else "REPORT"
+MD_PATH = REPORT_DIR / f"{NAME}.md"
+HTML_PATH = REPORT_DIR / f"{NAME}.html"
+PDF_PATH = REPORT_DIR / f"{NAME}.pdf"
 
 EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 
